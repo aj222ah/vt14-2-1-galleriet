@@ -108,3 +108,8 @@ h1 {
     height: 0;
     padding: 0;
 }
+
+.thumbnaildisplay {
+    float: left;
+    overflow-x: auto;
+}

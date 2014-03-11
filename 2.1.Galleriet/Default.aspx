@@ -20,7 +20,21 @@
                 <%-- Sidavdelning för visning av thumbnails och valt foto --%>
                 <div id="photoDisplayZone">
                     <asp:DetailsView ID="PhotoCloseUp" runat="server" Height="50px" Width="125px"></asp:DetailsView>
-                    <asp:DataList ID="ThumbnailList" runat="server"></asp:DataList>
+                    <asp:DataList ID="ThumbnailList" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li>
+                                <asp:HyperLink ID="ThumbnailImageHyperLink" runat="server">
+                                    <asp:Image ID="ThumbnailImage" runat="server" ImageUrl='<%# "~/Content/images/thumbnails/" + Item.Name %>'/>
+                                </asp:HyperLink>
+                            </li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:DataList>
                 </div>
 
                 <%-- Sidavdelning för filuppladdning --%>
