@@ -40,13 +40,13 @@ namespace _2._1.Galleriet {
         protected global::System.Web.UI.WebControls.DetailsView PhotoCloseUp;
         
         /// <summary>
-        /// ThumbnailList control.
+        /// ThumbnailRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList ThumbnailList;
+        protected global::System.Web.UI.WebControls.Repeater ThumbnailRepeater;
         
         /// <summary>
         /// UploadLabel control.

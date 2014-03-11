@@ -20,7 +20,7 @@
                 <%-- Sidavdelning för visning av thumbnails och valt foto --%>
                 <div id="photoDisplayZone">
                     <asp:DetailsView ID="PhotoCloseUp" runat="server" Height="50px" Width="125px"></asp:DetailsView>
-                    <asp:DataList ID="ThumbnailList" runat="server">
+                    <asp:Repeater ID="ThumbnailRepeater" runat="server">
                         <HeaderTemplate>
                             <ul>
                         </HeaderTemplate>
@@ -34,7 +34,7 @@
                         <FooterTemplate>
                             </ul>
                         </FooterTemplate>
-                    </asp:DataList>
+                    </asp:Repeater>
                 </div>
 
                 <%-- Sidavdelning för filuppladdning --%>
