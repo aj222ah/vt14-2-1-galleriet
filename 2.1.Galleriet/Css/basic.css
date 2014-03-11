@@ -1,0 +1,110 @@
+﻿/*  
+	Nollställning från:
+	http://meyerweb.com/eric/tools/css/reset/ 
+	v2.0 | 20110126
+	License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, main, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Sidolayout */
+body {
+    font-family: "Times New Roman";
+    font-size: 12pt;
+    background-color: silver;
+}
+
+#presentation {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: white;
+    min-height: 500px;
+    padding: 20px;
+}
+
+h1 {
+    display: block;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+#success {
+    background-color: lightgreen;
+    padding: 5px;
+    display: block;
+    border: 1px dotted green;
+}
+
+#successLabel {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: block;
+}
+
+#uploadZone {
+    display: block;
+    padding: 5px;
+    border: 1px dotted black;
+}
+
+#errorZone {
+    background-color: rgb(245, 131, 136);
+    padding: 5px;
+    display: block;
+    border: 1px dotted red;
+}
+
+#errorLabel {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: block;
+}
+
+.hidden {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+}
