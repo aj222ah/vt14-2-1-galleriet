@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ namespace _2._1.Galleriet.Model
     {
         private static Regex ApprovedExtension { get; set; }
         private static Regex SanitizePath { get; set; }
-        private static string PhysicalUploadedImagesPath { get { return AppDomain.CurrentDomain.GetData("APPBASE").ToString(); } }
+        private static string PhysicalUploadedImagesPath { get { return Path.Combine(AppDomain.CurrentDomain.GetData("APPBASE").ToString(), @"\Content\images"); } }
 
 
         public static Gallery()
@@ -26,9 +27,54 @@ namespace _2._1.Galleriet.Model
         {
             string imageFileName = "";
 
+            // Kolla så att filen har en godkänd filändelse
+            if (ApprovedExtension.IsMatch(fileName))
+            {
+                // Skapa nytt Image-objekt
+                Image newImage = Image.FromFile(fileName);
+
+                // Kolla om Image-objektet är rätt MIME-typ, kasta undantag om fel MIME-typ
+                if (!IsValidImage(newImage))
+                {
+                    throw new ArgumentException("Filen du har laddat upp är inte ett godkänt bildformat.");
+                }
+
+                fileName = SanitizePath.Replace(fileName, "");
+
+                
+                // Kolla om det angivna, rensade filnamnet redan finns annars redigera det
+                if (ImageExists(fileName))
+                {
+                    string tempFileName = fileName;
+                    do
+                    {
+                        int divider = tempFileName.LastIndexOf('.');
+                        string nameWithoutExtension = tempFileName.Substring(0, divider);
+                        string extension = tempFileName.Substring(divider, tempFileName.Length - divider);
+
+                        if (nameWithoutExtension.LastIndexOf(')') == (nameWithoutExtension.Length - 1) &&
+                                nameWithoutExtension.LastIndexOf('(') == (nameWithoutExtension.Length - 3))
+                        {
+                            int index = nameWithoutExtension.LastIndexOf(')') - 1;
+                            int number = int.Parse(nameWithoutExtension[index].ToString());
+                        }
+                        else
+                        {
+                            nameWithoutExtension += "(1)";
+                        }
+
+                        tempFileName = nameWithoutExtension + extension;
+                    } while (ImageExists(tempFileName));
+                }
 
 
-            return imageFileName;
+
+                return imageFileName;
+            }
+            else
+            {
+                throw new ArgumentException("Filnamnet du har angett är inte ett godkänt bildformat.");
+            }
         }
 
         public IEnumerable<string> GetImageNames()
@@ -49,6 +95,42 @@ namespace _2._1.Galleriet.Model
             }
 
             return imageNames.AsReadOnly();
+        }
+
+        // Metod som kollar om bildnamnet redan finns
+        public static bool ImageExists(string name)
+        {
+            Gallery temp = new Gallery();
+            IEnumerable<string> existingNames = temp.GetImageNames();
+            foreach (string str in existingNames)
+            {
+                if (str == name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsValidImage(Image image)
+        {
+            if (image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Jpeg.Guid)
+            {
+                return true;
+            }
+            else if (image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Gif.Guid)
+            {
+                return true;
+            }
+            else if (image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Png.Guid)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
