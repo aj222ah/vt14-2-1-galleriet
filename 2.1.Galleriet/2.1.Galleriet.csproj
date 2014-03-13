@@ -60,14 +60,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\larv.png" />
     <Content Include="Content\images\orkide.png" />
+    <Content Include="Content\images\te.png" />
+    <Content Include="Content\images\thumbnails\larv.png" />
     <Content Include="Content\images\thumbnails\orkide.png" />
+    <Content Include="Content\images\thumbnails\te.png" />
     <Content Include="Css\basic.css" />
     <Content Include="Default.aspx" />
     <Content Include="Error.html" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\functionality.js" />
+    <Content Include="Scripts\images\Close-icon.png" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Web.config" />

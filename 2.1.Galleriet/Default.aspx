@@ -13,22 +13,21 @@
             <form id="form1" runat="server">
 
                 <%-- Meddelande om korrekt filuppladdning --%>
-                <div id="success" class="hidden">
+                <div id="success">
                     <asp:Label ID="successLabel" runat="server" Text="Bilden har sparats."></asp:Label>
                 </div>
 
                 <%-- Sidavdelning för visning av thumbnails och valt foto --%>
                 <div id="photoDisplayZone">
                     <asp:DetailsView ID="PhotoCloseUp" runat="server" Height="50px" Width="125px"></asp:DetailsView>
-                    <asp:Repeater ID="ThumbnailRepeater" runat="server">
+                    <asp:Repeater ID="ThumbnailRepeater" runat="server" ItemType="_2._1.Galleriet.Model.Photo" SelectMethod="Repeater_GetData">
                         <HeaderTemplate>
                             <ul>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <li>
-                                <%-- <asp:HyperLink ID="ThumbnailImageHyperLink" runat="server">--%>
-                                    <asp:Image ID="ThumbnailImage" runat="server" ImageUrl='<%# "~/Content/images/thumbnails/" + Item.Name %>' AlternateText="Photo" />
-                                <%--</asp:HyperLink>--%>
+                            <li class="thumbnaildisplay">
+                                <asp:HyperLink ID="ThumbnailImageHyperLink" runat="server" NavigateUrl="#" ImageUrl='<%# "~/Content/images/thumbnails/" + Item.Name %>' CssClass="hyper">
+                                </asp:HyperLink>
                             </li>
                         </ItemTemplate>
                         <FooterTemplate>
@@ -42,7 +41,7 @@
                     <asp:Label ID="UploadLabel" runat="server" Text="Ladda upp bild:"></asp:Label><br />
 
                     <%-- Område för felmeddelande --%>
-                    <div id="errorZone" class="hidden">
+                    <div id="errorZone">
                         <asp:Label ID="errorLabel" runat="server" Text="Ett fel inträffade. Korrigera felet och försök igen!"></asp:Label>
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
                     </div>
@@ -53,5 +52,6 @@
                 </div>
             </form>
         </div>
+        <script src="Scripts/functionality.js"></script>
     </body>
 </html>

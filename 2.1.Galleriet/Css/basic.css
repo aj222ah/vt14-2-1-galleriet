@@ -84,7 +84,8 @@ h2 {
 #success {
     background-color: lightgreen;
     padding: 5px;
-    border: 1px dotted green;
+    border: 1px dotted green;    
+    position: relative;
 }
 
 #successLabel {
@@ -95,12 +96,14 @@ h2 {
 #uploadZone {
     padding: 5px;
     border: 1px dotted black;
+    clear: both;
 }
 
 #errorZone {
     background-color: rgb(245, 131, 136);
     padding: 5px;
     border: 1px dotted red;
+    position: relative;
 }
 
 #errorLabel {
@@ -116,5 +119,15 @@ h2 {
 
 .thumbnaildisplay {
     float: left;
-    overflow-x: auto;
+    padding: 5px;
+}
+
+.closeLink {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    background-color: white;
+    height: 16px;
 }

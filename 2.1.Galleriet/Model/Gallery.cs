@@ -93,7 +93,7 @@ namespace _2._1.Galleriet.Model
                 imageFileName = fileName;
                 thumbnailFileName = "thumb" + imageFileName;
 
-                thumbnail = newImage.GetThumbnailImage(60, 40, null, System.IntPtr.Zero);
+                thumbnail = newImage.GetThumbnailImage(75, 100, null, System.IntPtr.Zero);
                 thumbnail.Save(Path.Combine(PhysicalUploadedImagesPath, @"\thumbnails\", thumbnailFileName));
                 newImage.Save(Path.Combine(PhysicalUploadedImagesPath, @"\", imageFileName));
 
