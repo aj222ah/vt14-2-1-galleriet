@@ -65,27 +65,34 @@ body {
     padding: 20px;
 }
 
-h1 {
+h1, h2, p, #success, #successLabel, #uploadZone, #errorZone, #errorLabel{
     display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+h1 {
     font-weight: bold;
     font-size: 2em;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 #success {
     background-color: lightgreen;
     padding: 5px;
-    display: block;
     border: 1px dotted green;
 }
 
 #successLabel {
     padding-top: 15px;
     padding-bottom: 15px;
-    display: block;
 }
 
 #uploadZone {
-    display: block;
     padding: 5px;
     border: 1px dotted black;
 }
@@ -93,14 +100,12 @@ h1 {
 #errorZone {
     background-color: rgb(245, 131, 136);
     padding: 5px;
-    display: block;
     border: 1px dotted red;
 }
 
 #errorLabel {
     padding-top: 15px;
     padding-bottom: 15px;
-    display: block;
 }
 
 .hidden {

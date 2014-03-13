@@ -1,5 +1,8 @@
-﻿using System;
+﻿using _2._1.Galleriet.Model;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,6 +23,17 @@ namespace _2._1.Galleriet
             {
 
             }
+        }
+
+        public IEnumerable<dynamic> Repeater_GetData()
+        {
+            var di = new DirectoryInfo(Server.MapPath("~/Content/images/thumbnails"));
+
+            return (from fi in di.GetFiles()
+                    select new Photo
+                    {
+                        Name = fi.Name,
+                    }).AsEnumerable();
         }
     }
 }

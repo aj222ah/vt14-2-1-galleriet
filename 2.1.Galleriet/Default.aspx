@@ -26,9 +26,9 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <li>
-                                <asp:HyperLink ID="ThumbnailImageHyperLink" runat="server">
-                                    <asp:Image ID="ThumbnailImage" runat="server" ImageUrl='<%# "~/Content/images/thumbnails/" + Item.Name %>'/>
-                                </asp:HyperLink>
+                                <%-- <asp:HyperLink ID="ThumbnailImageHyperLink" runat="server">--%>
+                                    <asp:Image ID="ThumbnailImage" runat="server" ImageUrl='<%# "~/Content/images/thumbnails/" + Item.Name %>' AlternateText="Photo" />
+                                <%--</asp:HyperLink>--%>
                             </li>
                         </ItemTemplate>
                         <FooterTemplate>

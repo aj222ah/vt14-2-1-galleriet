@@ -15,7 +15,7 @@ namespace _2._1.Galleriet.Model
         private static string PhysicalUploadedImagesPath { get { return Path.Combine(AppDomain.CurrentDomain.GetData("APPBASE").ToString(), @"\Content\images"); } }
 
 
-        public static Gallery()
+        static Gallery()
         {
             string extensionsString = @"^.*\.(jpg|jpeg|png|gif)$";
             var invalidChars = new string(Path.GetInvalidFileNameChars());
@@ -26,12 +26,14 @@ namespace _2._1.Galleriet.Model
         public string SaveImage(Stream stream, string fileName)
         {
             string imageFileName = "";
+            string thumbnailFileName = "";
+            Image thumbnail;
 
             // Kolla så att filen har en godkänd filändelse
             if (ApprovedExtension.IsMatch(fileName))
             {
                 // Skapa nytt Image-objekt
-                Image newImage = Image.FromFile(fileName);
+                Image newImage = Image.FromStream(stream);
 
                 // Kolla om Image-objektet är rätt MIME-typ, kasta undantag om fel MIME-typ
                 if (!IsValidImage(newImage))
@@ -45,29 +47,55 @@ namespace _2._1.Galleriet.Model
                 // Kolla om det angivna, rensade filnamnet redan finns annars redigera det
                 if (ImageExists(fileName))
                 {
+                    string nameWithoutExtension;
+                    string extension; ;
                     string tempFileName = fileName;
                     do
                     {
                         int divider = tempFileName.LastIndexOf('.');
-                        string nameWithoutExtension = tempFileName.Substring(0, divider);
-                        string extension = tempFileName.Substring(divider, tempFileName.Length - divider);
+                        nameWithoutExtension = tempFileName.Substring(0, divider);
+                        extension = tempFileName.Substring(divider, tempFileName.Length - divider);
+                        Regex findParenthesis = new Regex(@"\((.*)\)");
+                        int imageNumber;
 
-                        if (nameWithoutExtension.LastIndexOf(')') == (nameWithoutExtension.Length - 1) &&
-                                nameWithoutExtension.LastIndexOf('(') == (nameWithoutExtension.Length - 3))
+                        if (findParenthesis.IsMatch(nameWithoutExtension))
                         {
-                            int index = nameWithoutExtension.LastIndexOf(')') - 1;
-                            int number = int.Parse(nameWithoutExtension[index].ToString());
+                            // Hitta index från parentes ( och ) och korrigera till plats efter respektive före
+                            int firstCharOfSubstring = nameWithoutExtension.LastIndexOf('(') + 1;
+                            int lastCharOfSubstring = nameWithoutExtension.LastIndexOf(')') - 1;
+                            int substringLength = firstCharOfSubstring - lastCharOfSubstring;
+
+                            // Kolla om substringen kan tolkas som ett heltal, öka i så fall på med 1
+                            if (int.TryParse(nameWithoutExtension.Substring(firstCharOfSubstring, substringLength), out imageNumber))
+                            {
+                                string tempString = "";
+                                imageNumber = int.Parse(nameWithoutExtension.Substring(firstCharOfSubstring, substringLength));
+                                imageNumber++;
+                                tempString = nameWithoutExtension.Remove(firstCharOfSubstring, substringLength).Insert(firstCharOfSubstring, imageNumber.ToString());
+                                nameWithoutExtension = tempString;
+                            }
+                            else
+                            {
+                                nameWithoutExtension += "(1)";
+                            }
+
                         }
                         else
                         {
                             nameWithoutExtension += "(1)";
                         }
-
                         tempFileName = nameWithoutExtension + extension;
                     } while (ImageExists(tempFileName));
+
+                    fileName = nameWithoutExtension + extension;
                 }
 
+                imageFileName = fileName;
+                thumbnailFileName = "thumb" + imageFileName;
 
+                thumbnail = newImage.GetThumbnailImage(60, 40, null, System.IntPtr.Zero);
+                thumbnail.Save(Path.Combine(PhysicalUploadedImagesPath, @"\thumbnails\", thumbnailFileName));
+                newImage.Save(Path.Combine(PhysicalUploadedImagesPath, @"\", imageFileName));
 
                 return imageFileName;
             }
@@ -113,6 +141,7 @@ namespace _2._1.Galleriet.Model
             return false;
         }
 
+        // Metod som kontrollerar om den skapade bilden är av godkänt format
         public bool IsValidImage(Image image)
         {
             if (image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Jpeg.Guid)
